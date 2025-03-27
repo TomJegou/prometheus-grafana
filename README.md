@@ -44,7 +44,8 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 ### 5. Gestion des Certificats
 - **Description** : Surveillance de la validité des certificats SSL/TLS
 - **Métriques surveillées** : Date d'expiration, validité, alertes
-- **Exporteurs utilisés** : [Détail des exporteurs]
+- **Exporteurs utilisés** : [ssl_exporter](https://github.com/ribbybibby/ssl_exporter) et [blackbox_exporter](https://github.com/prometheus/blackbox_exporter)
+- **Procédure d'installation** : [Voir documentation détaillée](installation_certificats.md)
 
 ## Architecture
 
@@ -73,7 +74,7 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 2. [Installation et configuration du serveur VPN/Reverse-Proxy](installation_vpn_proxy.md)
 3. [Installation et configuration d'Active Directory](installation_ad.md)
 4. [Installation et configuration de GLPI](installation_glpi.md)
-5. [Instructions détaillées pour la gestion des certificats]
+5. [Installation et configuration de la surveillance des certificats](installation_certificats.md)
 
 ### Configuration de Prometheus
 1. [Instructions pour installer Prometheus]
@@ -107,6 +108,8 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - Alerte en cas d'échec de réplication Active Directory
 - Alerte en cas de nombre élevé de tickets non assignés dans GLPI
 - Alerte en cas de faible espace disque sur le serveur GLPI
+- Alerte en cas de certificat utilisant un algorithme de chiffrement faible
+- Alerte en cas de certificat avec une chaîne de confiance incorrecte
 
 ## Procédures
 
@@ -114,6 +117,7 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - [Procédure d'installation et configuration du serveur VPN/Reverse-Proxy](installation_vpn_proxy.md)
 - [Procédure d'installation et configuration d'Active Directory](installation_ad.md)
 - [Procédure d'installation et configuration de GLPI](installation_glpi.md)
+- [Procédure d'installation et gestion des certificats](installation_certificats.md)
 - [Procédure de déploiement d'un nouvel exporteur]
 - [Procédure de création d'un nouveau tableau de bord]
 - [Procédure de configuration d'une nouvelle alerte]
@@ -156,6 +160,13 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - **glpi_computers_by_type** : Nombre d'ordinateurs par type
 - **glpi_tickets_processing_time** : Temps de traitement des tickets
 
+### Certificats
+- **ssl_tls_connect_success** : État de la connexion TLS
+- **ssl_tls_connect_cert_not_after** : Date d'expiration du certificat
+- **ssl_certificate_expiry_days** : Jours restants avant expiration
+- **ssl_tls_connect_cert_verify_error_code** : Code d'erreur de vérification
+- **ssl_tls_connect_tls_version_info** : Informations sur la version TLS et les algorithmes
+
 ## Références
 
 - [Documentation officielle Prometheus](https://prometheus.io/docs/introduction/overview/)
@@ -168,3 +179,6 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - [Windows Exporter pour Prometheus](https://github.com/prometheus-community/windows_exporter)
 - [Documentation officielle GLPI](https://glpi-project.org/fr/documentation-2/)
 - [Documentation FusionInventory](https://fusioninventory.org/documentation/)
+- [SSL Exporter pour Prometheus](https://github.com/ribbybibby/ssl_exporter)
+- [Blackbox Exporter pour Prometheus](https://github.com/prometheus/blackbox_exporter)
+- [Let's Encrypt](https://letsencrypt.org/docs/)
