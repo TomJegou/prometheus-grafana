@@ -20,7 +20,8 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 ### 1. Serveur Radius
 - **Description** : Service d'authentification réseau
 - **Métriques surveillées** : Tentatives d'authentification, échecs, latence
-- **Exporteurs utilisés** : [Détail des exporteurs]
+- **Exporteurs utilisés** : [radius_server_exporter](https://github.com/bvantagelimited/radius_server_exporter)
+- **Procédure d'installation** : [Voir documentation détaillée](installation_radius.md)
 
 ### 2. Serveur de Connexion Linux (VPN/Reverse-Proxy)
 - **Description** : Sécurisation des accès aux ressources
@@ -65,7 +66,7 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - Droits d'administration sur les VM
 
 ### Étapes d'Installation
-1. [Instructions détaillées pour configurer Radius]
+1. [Installation et configuration du serveur Radius](installation_radius.md)
 2. [Instructions détaillées pour configurer le VPN/Reverse-Proxy]
 3. [Instructions détaillées pour configurer l'AD]
 4. [Instructions détaillées pour configurer GLPI]
@@ -88,24 +89,37 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - **Tableau de bord Certificats** : Surveillance des certificats SSL/TLS
 - **Tableau de bord GLPI** : Suivi des tickets et de l'inventaire
 - **Tableau de bord Active Directory** : Surveillance des utilisateurs et des événements
+- **Tableau de bord RADIUS** : Suivi des authentifications et de la performance du service
 
 ## Alertes
 
 - Alerte en cas d'expiration imminente d'un certificat
-- Alerte en cas d'échecs d'authentification répétés
+- Alerte en cas d'échecs d'authentification répétés sur le serveur RADIUS
 - Alerte en cas de problème de réplication AD
 - Alerte en cas de surcharge des serveurs
 - Alerte en cas d'indisponibilité d'un service
 
 ## Procédures
 
+- [Procédure d'installation et configuration du serveur RADIUS](installation_radius.md)
 - [Procédure de déploiement d'un nouvel exporteur]
 - [Procédure de création d'un nouveau tableau de bord]
 - [Procédure de configuration d'une nouvelle alerte]
 - [Procédure de résolution des problèmes courants]
 
+## Métriques Surveillées
+
+### Serveur RADIUS
+- **radius_server_up** : État du serveur RADIUS
+- **radius_authentications_total** : Nombre total d'authentifications
+- **radius_authentication_success_total** : Nombre d'authentifications réussies
+- **radius_authentication_failure_total** : Nombre d'authentifications échouées
+- **radius_authentication_latency** : Temps de réponse aux requêtes
+- **radius_active_sessions** : Nombre de sessions actives
+
 ## Références
 
 - [Documentation officielle Prometheus](https://prometheus.io/docs/introduction/overview/)
 - [Documentation officielle Grafana](https://grafana.com/docs/)
-- [Documentation des exporteurs utilisés]
+- [Documentation officielle FreeRADIUS](https://freeradius.org/documentation/)
+- [Exporteur RADIUS pour Prometheus](https://github.com/bvantagelimited/radius_server_exporter)
