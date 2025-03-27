@@ -32,7 +32,8 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 ### 3. Active Directory
 - **Description** : Gestion des utilisateurs et des politiques de sécurité
 - **Métriques surveillées** : Activité des utilisateurs, modifications des comptes, réplication
-- **Exporteurs utilisés** : [Détail des exporteurs]
+- **Exporteurs utilisés** : [windows_exporter](https://github.com/prometheus-community/windows_exporter)
+- **Procédure d'installation** : [Voir documentation détaillée](installation_ad.md)
 
 ### 4. GLPI
 - **Description** : Gestion des actifs informatiques
@@ -69,7 +70,7 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 ### Étapes d'Installation
 1. [Installation et configuration du serveur Radius](installation_radius.md)
 2. [Installation et configuration du serveur VPN/Reverse-Proxy](installation_vpn_proxy.md)
-3. [Instructions détaillées pour configurer l'AD]
+3. [Installation et configuration d'Active Directory](installation_ad.md)
 4. [Instructions détaillées pour configurer GLPI]
 5. [Instructions détaillées pour la gestion des certificats]
 
@@ -102,11 +103,13 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - Alerte en cas d'indisponibilité d'un service
 - Alerte en cas de nombre élevé de connexions VPN rejetées
 - Alerte en cas d'erreurs HTTP 5xx sur le reverse proxy
+- Alerte en cas d'échec de réplication Active Directory
 
 ## Procédures
 
 - [Procédure d'installation et configuration du serveur RADIUS](installation_radius.md)
 - [Procédure d'installation et configuration du serveur VPN/Reverse-Proxy](installation_vpn_proxy.md)
+- [Procédure d'installation et configuration d'Active Directory](installation_ad.md)
 - [Procédure de déploiement d'un nouvel exporteur]
 - [Procédure de création d'un nouveau tableau de bord]
 - [Procédure de configuration d'une nouvelle alerte]
@@ -135,6 +138,13 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - **nginx_connections_writing** : Connexions en écriture
 - **nginx_http_requests_total** : Nombre total de requêtes HTTP
 
+### Active Directory
+- **ad_ds_dra_inbound_values** : Taux de réplication AD entrant
+- **ad_ds_dra_outbound_values** : Taux de réplication AD sortant
+- **ad_ldap_bind_time** : Temps de liaison LDAP
+- **ad_ldap_successful_binds** : Nombre de liaisons LDAP réussies
+- **windows_service_state** : État des services Windows, y compris les services AD
+
 ## Références
 
 - [Documentation officielle Prometheus](https://prometheus.io/docs/introduction/overview/)
@@ -143,3 +153,5 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - [Exporteur RADIUS pour Prometheus](https://github.com/bvantagelimited/radius_server_exporter)
 - [Documentation OpenVPN](https://openvpn.net/community-resources/)
 - [Documentation Nginx](https://nginx.org/en/docs/)
+- [Documentation Microsoft Active Directory](https://docs.microsoft.com/fr-fr/windows-server/identity/ad-ds/active-directory-domain-services)
+- [Windows Exporter pour Prometheus](https://github.com/prometheus-community/windows_exporter)
