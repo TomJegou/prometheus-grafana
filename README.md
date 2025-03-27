@@ -46,13 +46,13 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 
 ```
 ┌─────────────┐     ┌────────────┐     ┌─────────────┐
-│ Exporteurs  │────▶│ Prometheus │────▶│   Grafana   │
+│ Exporteurs  │────▶│ Prometheus │───▶│   Grafana   │
 └─────────────┘     └────────────┘     └─────────────┘
        │                   │                  │
        │                   │                  │
        ▼                   ▼                  ▼
 ┌──────────────────────────────────────────────────┐
-│                  Infrastructure                   │
+│                  Infrastructure                  │
 │  (Radius, VPN/Reverse-Proxy, AD, GLPI, Certs)    │
 └──────────────────────────────────────────────────┘
 ```
