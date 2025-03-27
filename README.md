@@ -26,7 +26,8 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 ### 2. Serveur de Connexion Linux (VPN/Reverse-Proxy)
 - **Description** : Sécurisation des accès aux ressources
 - **Métriques surveillées** : Connexions actives, tentatives de connexion, bande passante
-- **Exporteurs utilisés** : [Détail des exporteurs]
+- **Exporteurs utilisés** : [openvpn_exporter](https://github.com/kumina/openvpn_exporter) ou [nginx-prometheus-exporter](https://github.com/nginxinc/nginx-prometheus-exporter)
+- **Procédure d'installation** : [Voir documentation détaillée](installation_vpn_proxy.md)
 
 ### 3. Active Directory
 - **Description** : Gestion des utilisateurs et des politiques de sécurité
@@ -67,7 +68,7 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 
 ### Étapes d'Installation
 1. [Installation et configuration du serveur Radius](installation_radius.md)
-2. [Instructions détaillées pour configurer le VPN/Reverse-Proxy]
+2. [Installation et configuration du serveur VPN/Reverse-Proxy](installation_vpn_proxy.md)
 3. [Instructions détaillées pour configurer l'AD]
 4. [Instructions détaillées pour configurer GLPI]
 5. [Instructions détaillées pour la gestion des certificats]
@@ -90,6 +91,7 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - **Tableau de bord GLPI** : Suivi des tickets et de l'inventaire
 - **Tableau de bord Active Directory** : Surveillance des utilisateurs et des événements
 - **Tableau de bord RADIUS** : Suivi des authentifications et de la performance du service
+- **Tableau de bord VPN/Reverse-Proxy** : Suivi des connexions, des requêtes et de la performance
 
 ## Alertes
 
@@ -98,10 +100,13 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - Alerte en cas de problème de réplication AD
 - Alerte en cas de surcharge des serveurs
 - Alerte en cas d'indisponibilité d'un service
+- Alerte en cas de nombre élevé de connexions VPN rejetées
+- Alerte en cas d'erreurs HTTP 5xx sur le reverse proxy
 
 ## Procédures
 
 - [Procédure d'installation et configuration du serveur RADIUS](installation_radius.md)
+- [Procédure d'installation et configuration du serveur VPN/Reverse-Proxy](installation_vpn_proxy.md)
 - [Procédure de déploiement d'un nouvel exporteur]
 - [Procédure de création d'un nouveau tableau de bord]
 - [Procédure de configuration d'une nouvelle alerte]
@@ -117,9 +122,24 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - **radius_authentication_latency** : Temps de réponse aux requêtes
 - **radius_active_sessions** : Nombre de sessions actives
 
+### Serveur VPN (OpenVPN)
+- **openvpn_server_up** : État du serveur OpenVPN
+- **openvpn_connected_clients** : Nombre de clients connectés
+- **openvpn_client_received_bytes_total** : Total des octets reçus par client
+- **openvpn_client_sent_bytes_total** : Total des octets envoyés par client
+
+### Reverse Proxy (Nginx)
+- **nginx_up** : État du serveur Nginx
+- **nginx_connections_active** : Nombre de connexions actives
+- **nginx_connections_reading** : Connexions en lecture
+- **nginx_connections_writing** : Connexions en écriture
+- **nginx_http_requests_total** : Nombre total de requêtes HTTP
+
 ## Références
 
 - [Documentation officielle Prometheus](https://prometheus.io/docs/introduction/overview/)
 - [Documentation officielle Grafana](https://grafana.com/docs/)
 - [Documentation officielle FreeRADIUS](https://freeradius.org/documentation/)
 - [Exporteur RADIUS pour Prometheus](https://github.com/bvantagelimited/radius_server_exporter)
+- [Documentation OpenVPN](https://openvpn.net/community-resources/)
+- [Documentation Nginx](https://nginx.org/en/docs/)
