@@ -38,7 +38,8 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 ### 4. GLPI
 - **Description** : Gestion des actifs informatiques
 - **Métriques surveillées** : Tickets ouverts, temps de résolution, inventaire
-- **Exporteurs utilisés** : [Détail des exporteurs]
+- **Exporteurs utilisés** : Script PHP personnalisé et [node_exporter](https://github.com/prometheus/node_exporter)
+- **Procédure d'installation** : [Voir documentation détaillée](installation_glpi.md)
 
 ### 5. Gestion des Certificats
 - **Description** : Surveillance de la validité des certificats SSL/TLS
@@ -71,7 +72,7 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 1. [Installation et configuration du serveur Radius](installation_radius.md)
 2. [Installation et configuration du serveur VPN/Reverse-Proxy](installation_vpn_proxy.md)
 3. [Installation et configuration d'Active Directory](installation_ad.md)
-4. [Instructions détaillées pour configurer GLPI]
+4. [Installation et configuration de GLPI](installation_glpi.md)
 5. [Instructions détaillées pour la gestion des certificats]
 
 ### Configuration de Prometheus
@@ -104,12 +105,15 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - Alerte en cas de nombre élevé de connexions VPN rejetées
 - Alerte en cas d'erreurs HTTP 5xx sur le reverse proxy
 - Alerte en cas d'échec de réplication Active Directory
+- Alerte en cas de nombre élevé de tickets non assignés dans GLPI
+- Alerte en cas de faible espace disque sur le serveur GLPI
 
 ## Procédures
 
 - [Procédure d'installation et configuration du serveur RADIUS](installation_radius.md)
 - [Procédure d'installation et configuration du serveur VPN/Reverse-Proxy](installation_vpn_proxy.md)
 - [Procédure d'installation et configuration d'Active Directory](installation_ad.md)
+- [Procédure d'installation et configuration de GLPI](installation_glpi.md)
 - [Procédure de déploiement d'un nouvel exporteur]
 - [Procédure de création d'un nouveau tableau de bord]
 - [Procédure de configuration d'une nouvelle alerte]
@@ -145,6 +149,13 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - **ad_ldap_successful_binds** : Nombre de liaisons LDAP réussies
 - **windows_service_state** : État des services Windows, y compris les services AD
 
+### GLPI
+- **glpi_tickets_by_status** : Nombre de tickets par statut
+- **glpi_tickets_by_category** : Nombre de tickets par catégorie
+- **glpi_tickets_by_priority** : Nombre de tickets par priorité
+- **glpi_computers_by_type** : Nombre d'ordinateurs par type
+- **glpi_tickets_processing_time** : Temps de traitement des tickets
+
 ## Références
 
 - [Documentation officielle Prometheus](https://prometheus.io/docs/introduction/overview/)
@@ -155,3 +166,5 @@ L'infrastructure est hébergée sur une dedibox contenant Proxmox, permettant la
 - [Documentation Nginx](https://nginx.org/en/docs/)
 - [Documentation Microsoft Active Directory](https://docs.microsoft.com/fr-fr/windows-server/identity/ad-ds/active-directory-domain-services)
 - [Windows Exporter pour Prometheus](https://github.com/prometheus-community/windows_exporter)
+- [Documentation officielle GLPI](https://glpi-project.org/fr/documentation-2/)
+- [Documentation FusionInventory](https://fusioninventory.org/documentation/)
